@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('city'); // Город
             $table->string('country'); // Страна
             $table->timestamps(); // Даты создания и обновления
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
         });
 
         // Таблица номеров
@@ -29,6 +31,8 @@ return new class extends Migration
             $table->integer('capacity'); // Вместимость (кол-во человек)
             $table->decimal('price_per_night', 8, 2); // Цена за ночь
             $table->timestamps(); // Даты создания и обновления
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
         });
 
         // Таблица опций
@@ -36,6 +40,8 @@ return new class extends Migration
             $table->id(); // Уникальный идентификатор опции
             $table->string('name'); // Название опции (например, Wi-Fi, Завтрак)
             $table->timestamps(); // Даты создания и обновления
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
         });
 
         // Таблица связи номеров и опций (многие ко многим)
@@ -44,6 +50,8 @@ return new class extends Migration
             $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade'); // ID номера
             $table->foreignId('option_id')->constrained('options')->onDelete('cascade'); // ID опции
             $table->timestamps(); // Даты создания и обновления
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
         });
     }
 

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('booking_objects', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('room_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->enum('type', ['hotel', 'hall']);
+            $table->string('type');
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
