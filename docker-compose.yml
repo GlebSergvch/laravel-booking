@@ -70,6 +70,8 @@ services:
       - "${DB_PORT}:5432"
     networks:
       - booking
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   redis:
     build:
