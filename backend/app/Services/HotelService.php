@@ -27,7 +27,7 @@ class HotelService extends AbstractApiService
     }
 
     /**
-     * Создаёт бланк ПДБ
+     * Создаёт отель
      *
      * @param HotelDto $dto
      * @return JsonResponse

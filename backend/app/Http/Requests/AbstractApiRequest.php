@@ -14,7 +14,7 @@ abstract class AbstractApiRequest extends FormRequest implements ApiRequestInter
     public function validationData(): ?array
     {
         if (!$this->ajax()) {
-            throw new \Exception('Is not ajax.');
+//            throw new \Exception('Is not ajax.');
         }
 
         return array_merge(
