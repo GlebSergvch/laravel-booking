@@ -53,12 +53,9 @@ abstract class AbstractApiService
         AnonymousResourceCollection|ApiResourceInterface|array  $data = [],
         string $message = ''
     ): JsonResponse {
-
-        $data = ['data' => $data];
-
         $response = [
             'success' => true,
-            'data'    => $data,
+            'data'    => $data->collection,
             'message' => $message
         ];
 
