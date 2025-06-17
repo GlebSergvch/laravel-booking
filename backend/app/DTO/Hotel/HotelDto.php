@@ -12,5 +12,4 @@ class HotelDto extends DataTransferObject implements DtoInterface
     public readonly string $address;
     public readonly string $city;
     public readonly string $country;
-
 }
