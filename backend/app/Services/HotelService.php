@@ -17,12 +17,39 @@ class HotelService extends AbstractApiService
      * @param HotelDto $dto
      * @return JsonResponse
      */
-    public function read(DtoInterface $dto): JsonResponse
+    public function read(int $perPage = 15): JsonResponse
     {
-        $hotels = Hotel::query();
+        $hotels = Hotel::query()->paginate($perPage);
 
         return $this->success(
             HotelListResource::collection($hotels)
+        );
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function find(int $id): JsonResponse
+    {
+        $hotel = Hotel::findOrFail($id);
+
+        return $this->success(
+            new HotelListResource($hotel)
+        );
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function delete(int $id): JsonResponse
+    {
+        $hotel = Hotel::findOrFail($id);
+        $hotel->delete();
+
+        return $this->success(
+            []
         );
     }
 
@@ -56,6 +83,22 @@ class HotelService extends AbstractApiService
             DB::rollBack();
             throw $e;
         }
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(HotelDto $hotelDto): JsonResponse
+    {
+//        var_dump($hotelDto->id); die();
+        $hotel = Hotel::findOrFail($hotelDto->id);
+        $hotel->name = $hotelDto->name;
+        $hotel->save();
+
+        return $this->success(
+            new HotelListResource($hotel)
+        );
     }
 
     /**

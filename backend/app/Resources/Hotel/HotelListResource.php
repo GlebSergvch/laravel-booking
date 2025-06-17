@@ -11,7 +11,7 @@ class HotelListResource extends AbstractResource
 {
     /**
      * @OA\Schema (
-     *     schema="AccidentsList_200",
+     *     schema="HotelList_200",
      *     type="object",
      *     @OA\Property (
      *         property="success",
