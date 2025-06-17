@@ -6,9 +6,9 @@ use Illuminate\Routing\Controller;
 
 /**
  * @OA\Info(
- *      title="Industrial Safety. Frontend API.",
+ *      title="Booking. Frontend API.",
  *      version="1.0.0",
- *      description="Industrial Safety Frontend API Swagger OpenApi",
+ *      description="Booking Frontend API Swagger OpenApi",
  * ),
  * @OA\SecurityScheme(
  *     securityScheme="Bearer",
