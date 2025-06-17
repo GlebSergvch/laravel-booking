@@ -25,4 +25,13 @@ Route::group(['prefix' => 'v1'], static function () {
 
     Route::post('/register', [SigninController::class, 'register']);
     Route::post('/login', [SigninController::class, 'login']);
+    Route::post('/logout', [SigninController::class, 'logout']);
+
+    Route::prefix('hotel')
+        ->name('hotel.')
+        ->group(__DIR__.'/api/hotel.php');
+
+    Route::prefix('room')
+        ->name('room.')
+        ->group(__DIR__.'/api/room.php');
 });
