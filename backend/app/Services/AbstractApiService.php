@@ -8,6 +8,7 @@ use App\Interfaces\DtoInterface;
 use App\Resources\AbstractResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Validator;
 use function response;
 
@@ -45,21 +46,42 @@ abstract class AbstractApiService
     }
 
     /**
-     * @param AnonymousResourceCollection|ApiResourceInterface|array $data
-     * @param string $message
+     * Формирует успешный JSON-ответ.
+     *
+     * @param mixed $data Данные для ответа (коллекция, ресурс или массив).
+     * @param string $message Сообщение для ответа.
      * @return JsonResponse
      */
-    public function success(
-        AnonymousResourceCollection|ApiResourceInterface|array  $data = [],
-        string $message = ''
-    ): JsonResponse {
-        $response = [
+    public function success(mixed $data = [], string $message = ''): JsonResponse
+    {
+        return response()->json([
             'success' => true,
-            'data'    => $data->collection,
-            'message' => $message
-        ];
+            'data' => $this->normalizeData($data),
+            'message' => $message,
+        ]);
+    }
 
-        return response()->json($response);
+    /**
+     * Нормализует данные в массив для единообразного ответа API.
+     *
+     * @param mixed $data Данные (коллекция, ресурс, массив или null).
+     * @return array
+     */
+    protected function normalizeData(mixed $data): array
+    {
+        if ($data instanceof AnonymousResourceCollection) {
+            return $data->toArray(request());
+        }
+
+        if ($data instanceof JsonResource) {
+            return [$data->toArray(request())];
+        }
+
+        if (is_array($data)) {
+            return $data;
+        }
+
+        return [];
     }
 
     /**
