@@ -1,1 +1,2 @@
-# laravel_booking
+# Laravel booking
+# Сервис бронирования отелей
