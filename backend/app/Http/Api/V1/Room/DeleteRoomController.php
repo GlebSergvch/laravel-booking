@@ -19,7 +19,7 @@ class DeleteRoomController extends AbstractController
 
     /**
      * @OA\Delete(
-     *      path="/api/v1/rooms/{id}",
+     *      path="/api/v1/room/{id}",
      *      summary="Удаление номера",
      *      security={{"Bearer": {}}},
      *      tags={"Room"},
@@ -48,7 +48,6 @@ class DeleteRoomController extends AbstractController
      */
     public function __invoke(int $id): JsonResponse
     {
-        $this->roomService->delete($id);
-        return response()->json(null, 204);
+        return $this->roomService->delete($id);
     }
 }
