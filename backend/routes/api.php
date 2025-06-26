@@ -34,4 +34,8 @@ Route::group(['prefix' => 'v1'], static function () {
     Route::prefix('room')
         ->name('room.')
         ->group(__DIR__.'/api/room.php');
+
+    Route::prefix('option')
+        ->name('option.')
+        ->group(__DIR__.'/api/option.php');
 });
