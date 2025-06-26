@@ -116,7 +116,7 @@ class RoomService extends AbstractApiService
      * @param int $id
      * @throws ModelNotFoundException
      */
-    public function delete(int $id): void
+    public function delete(int $id): JsonResponse
     {
         $room = Room::findOrFail($id);
 
@@ -133,6 +133,8 @@ class RoomService extends AbstractApiService
         // Очистка кэша
         Cache::forget("room:{$id}");
         Cache::forget("hotel:{$room->hotel_id}:rooms");
+
+        return $this->success();
     }
 
     /**
