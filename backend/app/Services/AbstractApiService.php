@@ -56,7 +56,7 @@ abstract class AbstractApiService
     {
         return response()->json([
             'success' => true,
-            'data' => $this->normalizeData($data),
+            'body' => $this->normalizeData($data),
             'message' => $message,
         ]);
     }
