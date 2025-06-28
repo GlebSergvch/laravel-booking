@@ -17,7 +17,19 @@ class ShowHotelController
      *      security={{"Bearer": {}}},
      *      tags={"Hotel"},
      *      @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
-     *      @OA\Response(response=200, description="Success", @OA\JsonContent(ref="#/components/schemas/HotelCreateResponse_200"))
+     *      @OA\Response(
+     *           response=200,
+     *           description="Success",
+     *           @OA\JsonContent(
+     *               type="object",
+     *               @OA\Property(property="success", type="boolean", example=true),
+     *               @OA\Property(
+     *                   property="body",
+     *                   ref="#/components/schemas/HotelCreateResponse_200"
+     *               ),
+     *               @OA\Property(property="message", type="string", example="Show successful")
+     *           )
+     *      )
      * )
      */
     public function __invoke(int $id): JsonResponse

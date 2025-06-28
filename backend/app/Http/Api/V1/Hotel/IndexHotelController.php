@@ -35,7 +35,16 @@ class IndexHotelController extends AbstractController
      *      @OA\Response(
      *          response=200,
      *          description="Success",
-     *          @OA\JsonContent(ref="#/components/schemas/HotelList_200")
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="success", type="boolean", example=true),
+     *              @OA\Property(
+     *                  property="body",
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/HotelList_200")
+     *              ),
+     *              @OA\Property(property="message", type="string", example="")
+     *          )
      *      ),
      *      @OA\Response(
      *          response=422,

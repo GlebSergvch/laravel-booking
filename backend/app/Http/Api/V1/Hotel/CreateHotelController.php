@@ -31,9 +31,17 @@ class CreateHotelController extends AbstractController
      *           @OA\JsonContent(ref="#/components/schemas/Hotel_HotelRequest")
      *       ),
      *      @OA\Response(
-     *          response=200,
-     *          description="Ok",
-     *          @OA\JsonContent(ref="#/components/schemas/HotelCreateResponse_200")
+     *           response=200,
+     *           description="Success",
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="success", type="boolean", example=true),
+     *              @OA\Property(
+     *                  property="body",
+     *                  ref="#/components/schemas/HotelCreateResponse_200"
+     *              ),
+     *              @OA\Property(property="message", type="string", example="Create successful")
+     *          )
      *      ),
      *      @OA\Response(
      *          response=422,

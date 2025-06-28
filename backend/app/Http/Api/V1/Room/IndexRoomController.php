@@ -67,13 +67,19 @@ class IndexRoomController extends AbstractController
      *          @OA\Schema(type="integer", default=15)
      *      ),
      *      @OA\Response(
-     *          response=200,
-     *          description="Success",
-     *          @OA\JsonContent(
-     *              type="array",
-     *              @OA\Items(ref="#/components/schemas/RoomCreateResponse_200")
-     *          )
-     *      ),
+     *           response=200,
+     *           description="Success",
+     *           @OA\JsonContent(
+     *               type="object",
+     *               @OA\Property(property="success", type="boolean", example=true),
+     *               @OA\Property(
+     *                   property="body",
+     *                   type="array",
+     *                   @OA\Items(ref="#/components/schemas/RoomCreateResponse_200")
+     *               ),
+     *               @OA\Property(property="message", type="string", example="")
+     *           )
+     *       ),
      *      @OA\Response(
      *          response=404,
      *          description="Hotel not found",

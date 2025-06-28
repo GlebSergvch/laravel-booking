@@ -24,10 +24,18 @@ class CreateOptionController extends AbstractController
      *           @OA\JsonContent(ref="#/components/schemas/Option_OptionRequest")
      *      ),
      *      @OA\Response(
-     *          response=200,
-     *          description="Опция успешно создана",
-     *          @OA\JsonContent(ref="#/components/schemas/OptionResponse_200")
-     *      ),
+     *           response=200,
+     *           description="Success",
+     *           @OA\JsonContent(
+     *               type="object",
+     *               @OA\Property(property="success", type="boolean", example=true),
+     *               @OA\Property(
+     *                   property="body",
+     *                   ref="#/components/schemas/OptionResponse_200"
+     *               ),
+     *               @OA\Property(property="message", type="string", example="Create successful")
+     *           )
+     *       ),
      *      @OA\Response(
      *          response=422,
      *          description="Ошибка валидации",

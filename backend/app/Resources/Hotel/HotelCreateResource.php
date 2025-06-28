@@ -13,73 +13,49 @@ class HotelCreateResource extends AbstractResource
      * @OA\Schema (
      *     schema="HotelCreateResponse_200",
      *     type="object",
+     *     @OA\Property(
+     *         property="id",
+     *         type="integer"
+     *     ),
+     *     @OA\Property(
+     *         property="name",
+     *         type="string"
+     *     ),
+     *     @OA\Property(
+     *         property="address",
+     *         type="string"
+     *     ),
+     *     @OA\Property(
+     *         property="city",
+     *         type="string"
+     *     ),
+     *     @OA\Property(
+     *         property="country",
+     *         type="string"
+     *     ),
+     *     @OA\Property(
+     *         property="created_at",
+     *         type="string",
+     *         format="date-time"
+     *     ),
+     *     @OA\Property(
+     *         property="updated_at",
+     *         type="string",
+     *         format="date-time"
+     *     )
+     * )
+     * @OA\Schema (
+     *     schema="HotelCreateResponse_422",
+     *     type="object",
      *     @OA\Property (
-     *         property="success",
-     *         type="boolean",
+     *         property="message",
+     *         type="string"
      *     ),
      *     @OA\Property (
-     *          property="data",
-     *          type="object",
-     *          @OA\Property(
-     *              property="data",
-     *              type="array",
-     *              @OA\Items(
-     *                  type="object",
-     *                  @OA\Property (
-     *                      property="id",
-     *                      type="integer",
-     *                  ),
-     *                  @OA\Property (
-     *                      property="name",
-     *                      type="string",
-     *                  ),
-     *                  @OA\Property (
-     *                      property="address",
-     *                      type="string",
-     *                  ),
-     *                  @OA\Property (
-     *                      property="city",
-     *                      type="string",
-     *                  ),
-     *                  @OA\Property (
-     *                     property="country",
-     *                     type="integer",
-     *                  ),
-     *              )
-     *          ),
-     *          @OA\Property (
-     *               property="related",
-     *               type="object",
-     *               @OA\Property (
-     *                   property="counters",
-     *                   type="object",
-     *                   @OA\Property (
-     *                       property="total",
-     *                       type="object",
-     *                       @OA\Property(property="label", type="string"),
-     *                       @OA\Property(property="value", type="integer"),
-     *                       @OA\Property(property="status_id", type="integer")
-     *                   ),
-     *               ),
-     *           ),
-     *      ),
-     *      @OA\Property (
-     *          property="message",
-     *          type="string",
-     *      ),
-     *   )
-     * @OA\Schema (
-     *      schema="HotelCreateResponse_422",
-     *      type="object",
-     *      @OA\Property (
-     *          property="message",
-     *          type="string",
-     *      ),
-     *      @OA\Property (
-     *          property="errors",
-     *          type="object",
-     *      )
-     *  )
+     *         property="errors",
+     *         type="object"
+     *     )
+     * )
      *
      * @param Request $request
      * @return array|Arrayable

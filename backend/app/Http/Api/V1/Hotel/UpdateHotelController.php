@@ -18,9 +18,29 @@ class UpdateHotelController
      *      summary="Обновить отель",
      *      security={{"Bearer": {}}},
      *      tags={"Hotel"},
-     *      @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
-     *      @OA\RequestBody(required=true, @OA\JsonContent(ref="#/components/schemas/Hotel_HotelRequest")),
-     *      @OA\Response(response=200, description="Updated", @OA\JsonContent(ref="#/components/schemas/HotelCreateResponse_200"))
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/Hotel_HotelRequest")
+     *      ),
+     *      @OA\Response(
+     *            response=200,
+     *            description="Success",
+     *           @OA\JsonContent(
+     *               type="object",
+     *               @OA\Property(property="success", type="boolean", example=true),
+     *               @OA\Property(
+     *                   property="body",
+     *                   ref="#/components/schemas/HotelCreateResponse_200"
+     *               ),
+     *               @OA\Property(property="message", type="string", example="Create successful")
+     *           )
+     *       ),
      * )
      */
     public function __invoke(HotelRequest $request, int $id): JsonResponse

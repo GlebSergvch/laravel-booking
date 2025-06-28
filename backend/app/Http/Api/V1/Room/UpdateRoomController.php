@@ -40,7 +40,15 @@ class UpdateRoomController extends AbstractController
      *      @OA\Response(
      *          response=200,
      *          description="Success",
-     *          @OA\JsonContent(ref="#/components/schemas/RoomCreateResponse_200")
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="success", type="boolean", example=true),
+     *              @OA\Property(
+     *                  property="body",
+     *                  ref="#/components/schemas/RoomCreateResponse_200"
+     *              ),
+     *              @OA\Property(property="message", type="string", example="Create successful")
+     *          )
      *      ),
      *      @OA\Response(
      *          response=422,

@@ -74,7 +74,7 @@ abstract class AbstractApiService
         }
 
         if ($data instanceof JsonResource) {
-            return [$data->toArray(request())];
+            return $data->toArray(request());
         }
 
         if (is_array($data)) {
