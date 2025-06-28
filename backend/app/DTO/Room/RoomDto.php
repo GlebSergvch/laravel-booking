@@ -6,7 +6,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class RoomDto extends DataTransferObject
 {
-    public int $id; // Добавляем свойство id
+    public ?int $id; // Добавляем свойство id
     public ?int $hotel_id = null;
     public ?string $name = null;
     public ?int $capacity = null;
