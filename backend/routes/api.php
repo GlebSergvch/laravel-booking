@@ -38,4 +38,8 @@ Route::group(['prefix' => 'v1'], static function () {
     Route::prefix('option')
         ->name('option.')
         ->group(__DIR__.'/api/option.php');
+
+    Route::prefix('booking-objects')
+        ->name('booking-objects.')
+        ->group(__DIR__.'/api/booking-objects.php');
 });
