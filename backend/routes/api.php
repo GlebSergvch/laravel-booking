@@ -42,4 +42,8 @@ Route::group(['prefix' => 'v1'], static function () {
     Route::prefix('booking-objects')
         ->name('booking-objects.')
         ->group(__DIR__.'/api/booking-objects.php');
+
+    Route::prefix('time-slot')
+        ->name('time-slot.')
+        ->group(__DIR__.'/api/time-slot.php');
 });
