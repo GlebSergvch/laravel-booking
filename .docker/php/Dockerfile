@@ -25,8 +25,7 @@ RUN apt-get update \
     && mkdir -p /usr/src/php/ext/imagick \
     && chmod 777 /usr/src/php/ext/imagick \
     && curl -fsSL https://github.com/Imagick/imagick/archive/refs/tags/3.7.0.tar.gz | tar xvz -C "/usr/src/php/ext/imagick" --strip 1 \
-    && docker-php-ext-install imagick \
-    && rm /etc/ImageMagick-6/policy.xml
+    && docker-php-ext-install imagick
 
 RUN apt-get update && apt-get install -y curl && \
   curl -sS https://getcomposer.org/installer | php \
