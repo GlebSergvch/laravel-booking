@@ -46,4 +46,8 @@ Route::group(['prefix' => 'v1'], static function () {
     Route::prefix('time-slot')
         ->name('time-slot.')
         ->group(__DIR__.'/api/time-slot.php');
+
+    Route::prefix('review')
+        ->name('review')
+        ->group(__DIR__.'/api/review.php');
 });
