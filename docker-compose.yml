@@ -148,12 +148,30 @@ services:
     networks:
       - booking
 
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: "${APP_ENV}_${CONTAINER_NAME}_rabbit"
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      # при желании добавьте RABBITMQ_DEFAULT_VHOST: my_vhost
+    ports:
+      - "5672:5672"     # AMQP
+      - "15672:15672"   # Management UI
+    networks:
+      - booking
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
 volumes:
   pgdata:
     driver: local
   pgdata_test:
     driver: local
   vue-app:
+    driver: local
+  rabbitmq-data:
     driver: local
 
 networks:
