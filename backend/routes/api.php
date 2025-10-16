@@ -50,4 +50,8 @@ Route::group(['prefix' => 'v1'], static function () {
     Route::prefix('review')
         ->name('review')
         ->group(__DIR__.'/api/review.php');
+
+    Route::prefix('booking')
+        ->name('booking')
+        ->group(__DIR__.'/api/booking.php');
 });
