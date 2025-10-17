@@ -17,6 +17,11 @@ class TimeSlot extends Model {
         'updated_by',
     ];
 
+    protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
+    ];
+
     /**
      * @return BelongsTo
      */

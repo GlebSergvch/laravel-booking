@@ -114,4 +114,9 @@ class BookingService extends AbstractApiService
             throw $e;
         }
     }
+
+    private function langMessage(string $name): string
+    {
+        return trans('dialogue.' . $name);
+    }
 }

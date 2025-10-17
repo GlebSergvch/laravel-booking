@@ -39,6 +39,11 @@ class Booking extends Model
         'updated_by'
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
     /**
      * @return BelongsTo
      */

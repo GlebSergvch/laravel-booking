@@ -17,7 +17,7 @@ class CreateBookingController extends AbstractController
 
     /**
      * @OA\Post(
-     *     path="/api/v1/bookings",
+     *     path="/api/v1/booking",
      *     summary="Создание бронирования",
      *     description="Создает новое бронирование для доступного временного слота",
      *     security={{"Bearer": {}}},
