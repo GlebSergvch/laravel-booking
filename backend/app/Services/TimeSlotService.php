@@ -3,13 +3,17 @@
 namespace App\Services;
 
 use App\DTO\TimeSlot\TimeSlotDto;
+use App\DTO\TimeSlot\UpdateAvailabilityDto;
+use App\Models\Booking;
 use App\Models\TimeSlot;
+use App\Resources\TimeSlot\TimeSlotAvailabilityResource;
 use App\Resources\TimeSlot\TimeSlotListResource;
 use App\Resources\TimeSlot\TimeSlotResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class TimeSlotService extends AbstractApiService
 {
@@ -108,6 +112,54 @@ class TimeSlotService extends AbstractApiService
         Cache::forget('time_slots');
 
         return $this->success(null, $this->langMessage('response_messages.delete_success'));
+    }
+
+    public function updateAvailability(UpdateAvailabilityDto $dto): JsonResponse
+    {
+        $timeSlot = TimeSlot::findOrFail($dto->id);
+
+        // Запрещаем делать доступным слот, если он уже забронирован
+        if ($dto->is_available === true) {
+            $existingBooking = Booking::where('time_slot_id', $dto->id)
+                ->whereIn('status', ['pending', 'confirmed'])
+                ->exists();
+
+            if ($existingBooking) {
+                throw ValidationException::withMessages([
+                    'is_available' => 'Нельзя сделать слот доступным: он уже забронирован'
+                ]);
+            }
+        }
+
+        DB::beginTransaction();
+        try {
+            $timeSlot->update([
+                'is_available' => $dto->is_available,
+                'updated_by' => $dto->updated_by ?? auth()->id(),
+            ]);
+
+            DB::commit();
+
+            Log::info('Time slot availability updated', [
+                'time_slot_id' => $timeSlot->id,
+                'is_available' => $dto->is_available,
+                'updated_by' => auth()->id(),
+            ]);
+
+            return $this->success(
+                new TimeSlotAvailabilityResource($timeSlot->fresh()),
+                $this->langMessage('response_messages.update_success')
+            );
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Failed to update time slot availability', [
+                'error' => $e->getMessage(),
+                'time_slot_id' => $dto->id,
+            ]);
+
+            throw $e;
+        }
     }
 
     private function langMessage(string $name): string
