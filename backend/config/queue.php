@@ -106,4 +106,37 @@ return [
         'table' => 'failed_jobs',
     ],
 
+    'rabbitmq' => [
+        'driver' => 'rabbitmq',
+        'connection' => \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Connectors\RabbitMQConnector::class,
+
+        'hosts' => [
+            [
+                'host' => 'rabbitmq',
+                'port' => env('RABBITMQ_PORT', 5672),
+                'user' => env('RABBITMQ_LOGIN', 'guest'),
+                'password' => env('RABBITMQ_PASSWORD', 'guest'),
+                'vhost' => env('RABBITMQ_VHOST', '/'),
+            ],
+        ],
+
+        'options' => [
+            'queue' => [
+                'queue' => env('RABBITMQ_QUEUE', 'default'),
+                'declare' => true,
+                'bind' => true,
+                'durable' => true,
+                'passive' => false,
+            ],
+            'exchange' => [
+                'name' => 'laravel',
+                'type' => 'direct',
+                'declare' => true,
+                'durable' => true,
+            ],
+        ],
+
+        'worker' => \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue::class,
+    ],
+
 ];
