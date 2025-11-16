@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Builders\BookingBuilder;
 use App\DTO\Booking\BookingDto;
+use App\Jobs\ProcessBookingJob;
 use App\Models\Booking;
 use App\Models\TimeSlot;
 use App\Resources\Booking\BookingResource;
@@ -104,6 +105,10 @@ class BookingService extends AbstractApiService
             }
 
             DB::commit();
+
+            ProcessBookingJob::dispatch($booking)
+                ->onQueue('bookings')
+                ->delay(now()->addSeconds(15));
 
             return $this->success(
                 new BookingResource($booking),
