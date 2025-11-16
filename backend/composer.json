@@ -12,7 +12,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "spatie/data-transfer-object": "^3.9"
+        "spatie/data-transfer-object": "^3.9",
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^14.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
