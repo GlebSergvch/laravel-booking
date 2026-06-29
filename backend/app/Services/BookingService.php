@@ -35,6 +35,10 @@ class BookingService extends AbstractApiService
             TimeSlot::where('id', $dto->time_slot_id)
                 ->update(['is_available' => false]);
 
+            ProcessBookingJob::dispatch($booking)
+                ->onQueue('bookings')
+                ->delay(now()->addSeconds(15));
+
             DB::commit();
 
             Log::info('Booking created successfully', [
