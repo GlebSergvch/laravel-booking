@@ -3,7 +3,11 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "load:smoke": "k6 run load-tests/k6/scenarios/smoke.js",
+        "load:read": "k6 run load-tests/k6/scenarios/read-catalog.js",
+        "load:booking": "k6 run load-tests/k6/scenarios/booking-write.js",
+        "load:race": "k6 run load-tests/k6/scenarios/booking-race.js"
     },
     "devDependencies": {
         "axios": "^1.6.4",

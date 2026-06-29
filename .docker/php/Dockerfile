@@ -2,6 +2,17 @@ FROM php:8.2-fpm
 
 WORKDIR /var/www/backend
 
+# k6 apt repository
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    --no-install-recommends \
+    && mkdir -p /usr/share/keyrings \
+    && curl -fsSL https://dl.k6.io/key.gpg | gpg --dearmor -o /usr/share/keyrings/k6-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" > /etc/apt/sources.list.d/k6.list \
+    && rm -rf /var/lib/apt/lists/*
+
 # Установка системных пакетов и зависимостей для PHP-расширений
 RUN apt-get update && apt-get install -y \
     git \
@@ -16,7 +27,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     wget \
     postgresql-client \
-    curl \
+    nodejs \
+    npm \
+    k6 \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
@@ -46,6 +59,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 # Копируем приложение (предполагается, что в контексте есть папка backend)
 COPY ./backend ./
+COPY .docker/php/entrypoint.sh /usr/local/bin/app-entrypoint
 
 # Установка PHP-зависимостей (composer)
 RUN composer install --optimize-autoloader --no-scripts --no-interaction --prefer-dist
@@ -59,5 +73,6 @@ RUN chown -R www-data:www-data /var/local/.pgpass || true
 
 RUN chmod -R 0777 storage bootstrap/cache || true
 RUN chmod 0600 /var/local/.pgpass || true
+RUN chmod +x /usr/local/bin/app-entrypoint
 
 EXPOSE 9000

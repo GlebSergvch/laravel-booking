@@ -11,7 +11,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - "./.docker/nginx/conf/${APP_ENV}/backend.conf:/etc/nginx/conf.d/x_backend.conf"
+      - "./.docker/nginx/conf/${APP_ENV}/backend.conf:/etc/nginx/conf.d/default.conf"
       - ./runtime/nginx:/var/log/nginx
       - ./backend:/var/www/backend
     depends_on:
@@ -39,6 +39,7 @@ services:
     volumes:
       - ./backend:/var/www/backend
       - "./.docker/php/ini/php-dev.ini:/usr/local/etc/php/conf.d/xx-custom.ini"
+    entrypoint: ["/usr/local/bin/app-entrypoint"]
     ports:
       - "8080:8080"
     networks:
@@ -177,4 +178,3 @@ volumes:
 networks:
   booking:
     driver: bridge
-
